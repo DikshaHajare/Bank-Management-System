@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Home - Bank Management System{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container">
+        <h1>Welcome to Bank Management System</h1>
+        <p>Secure, Fast, and Reliable Banking Solutions</p>
+        {% if not session.user_id %}
+        <div style="margin-top: 2rem;">
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg"><i class="fas fa-user-plus"></i> Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline btn-lg" style="margin-left: 1rem;"><i class="fas fa-sign-in-alt"></i> Login</a>
+        </div>
+        {% else %}
+        <div style="margin-top: 2rem;">
+            <a href="{{ url_for('customer_dashboard') }}" class="btn btn-primary btn-lg"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<div class="container">
+    <div class="dashboard-grid" style="margin: 3rem 0;">
+        <div class="card stat-card">
+            <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+            <h3>Secure Banking</h3>
+            <p>256-bit encryption protection</p>
+        </div>
+        <div class="card stat-card">
+            <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+            <h3>Instant Transfers</h3>
+            <p>Send money in seconds</p>
+        </div>
+        <div class="card stat-card">
+            <div class="stat-icon"><i class="fas fa-hand-holding-usd"></i></div>
+            <h3>Easy Loans</h3>
+            <p>Quick approval process</p>
+        </div>
+        <div class="card stat-card">
+            <div class="stat-icon"><i class="fas fa-mobile-alt"></i></div>
+            <h3>Mobile Banking</h3>
+            <p>Bank anywhere, anytime</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

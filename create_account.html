@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-plus-circle"></i> Open New Account</h2>
+        </div>
+        <form method="POST">
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-tag"></i> Account Type</label>
+                <select name="account_type" class="form-control" required>
+                    <option value="Savings">Savings Account</option>
+                    <option value="Current">Current Account</option>
+                    <option value="Salary">Salary Account</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-rupee-sign"></i> Initial Deposit (₹)</label>
+                <input type="number" name="initial_deposit" class="form-control" value="0" min="0" step="100">
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-check-circle"></i> Create Account</button>
+        </form>
+        <div style="text-align: center; margin-top: 1rem;">
+            <a href="{{ url_for('customer_dashboard') }}" style="color: #4f46e5;">← Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

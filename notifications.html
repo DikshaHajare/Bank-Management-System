@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 0;">
+    <h1 style="color: white;"><i class="fas fa-bell"></i> Notifications</h1>
+
+    <div class="card" style="margin-top: 2rem;">
+        <div class="transaction-list">
+            <div class="transaction-item" style="background: #fef3c7;">
+                <div class="transaction-icon icon-deposit"><i class="fas fa-check-circle"></i></div>
+                <div class="transaction-details">
+                    <div class="transaction-type">Loan Approved</div>
+                    <div class="transaction-desc">Your loan of ₹50,000 has been approved.</div>
+                    <small style="color: #94a3b8;">2 hours ago</small>
+                </div>
+            </div>
+            <div class="transaction-item">
+                <div class="transaction-icon icon-deposit"><i class="fas fa-wallet"></i></div>
+                <div class="transaction-details">
+                    <div class="transaction-type">Deposit Successful</div>
+                    <div class="transaction-desc">₹10,000 deposited to your account.</div>
+                    <small style="color: #94a3b8;">Yesterday</small>
+                </div>
+            </div>
+            <div class="transaction-item">
+                <div class="transaction-icon icon-transfer"><i class="fas fa-exchange-alt"></i></div>
+                <div class="transaction-details">
+                    <div class="transaction-type">Transfer Received</div>
+                    <div class="transaction-desc">Received ₹25,000 from Rohit Sharma.</div>
+                    <small style="color: #94a3b8;">2 days ago</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

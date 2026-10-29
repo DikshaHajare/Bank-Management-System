@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Transactions{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 0;">
+    <h1 style="color: white;"><i class="fas fa-history"></i> Transaction History</h1>
+    <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem;">{{ account_info }}</p>
+
+    <div class="card">
+        {% if transactions %}
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Description</th>
+                        <th>To Account</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tx in transactions %}
+                    <tr>
+                        <td>{{ tx.date.strftime('%d %b %Y, %I:%M %p') }}</td>
+                        <td><span class="badge badge-{{ 'success' if tx.transaction_type == 'Deposit' else 'danger' if tx.transaction_type == 'Withdrawal' else 'primary' }}">{{ tx.transaction_type }}</span></td>
+                        <td>{% if tx.transaction_type == 'Withdrawal' %}-{% else %}+{% endif %}₹{{ tx.amount|round(2) }}</td>
+                        <td>{{ tx.description }}</td>
+                        <td>{{ tx.to_account or '-' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p style="text-align: center; color: #64748b; padding: 3rem;">No transactions found.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

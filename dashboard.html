@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div style="text-align: center; padding: 4rem;">
+    <div style="width: 50px; height: 50px; border: 4px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 1rem;"></div>
+    <p style="color: white;">Redirecting to dashboard...</p>
+</div>
+<script>window.location.href = "{{ url_for('customer_dashboard') }}";</script>
+{% endblock %}

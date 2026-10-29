@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Apply for Loan{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-hand-holding-usd"></i> Apply for Loan</h2>
+        </div>
+        <form method="POST">
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-tag"></i> Loan Type</label>
+                <select name="loan_type" class="form-control" required>
+                    <option value="">Select Loan Type</option>
+                    <option value="Personal">Personal Loan (10.5% - 14%)</option>
+                    <option value="Home">Home Loan (8.5% - 11%)</option>
+                    <option value="Car">Car Loan (9% - 13%)</option>
+                    <option value="Education">Education Loan (8% - 12%)</option>
+                    <option value="Business">Business Loan (12% - 18%)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-rupee-sign"></i> Loan Amount (₹)</label>
+                <input type="number" name="amount" class="form-control" min="10000" step="10000" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-calendar"></i> Loan Term (Years)</label>
+                <select name="term" class="form-control" required>
+                    <option value="1">1 Year</option>
+                    <option value="2">2 Years</option>
+                    <option value="3">3 Years</option>
+                    <option value="5">5 Years</option>
+                    <option value="10">10 Years</option>
+                    <option value="15">15 Years</option>
+                    <option value="20">20 Years</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-pen"></i> Purpose of Loan</label>
+                <textarea name="purpose" class="form-control" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-briefcase"></i> Employment Type</label>
+                <select name="employment" class="form-control" required>
+                    <option value="Salaried">Salaried Employee</option>
+                    <option value="Self Employed">Self Employed</option>
+                    <option value="Business">Business Owner</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-rupee-sign"></i> Monthly Income (₹)</label>
+                <input type="number" name="income" class="form-control" min="0" step="1000" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Submit Application</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

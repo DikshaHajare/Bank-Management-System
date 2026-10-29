@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Delete Account{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="delete-warning">
+            <div class="warning-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="warning-title">Delete Account</div>
+            <p style="color: #92400e;">You are about to delete account:</p>
+            <p style="font-weight: bold; font-size: 1.1rem; margin: 1rem 0; color: #0f172a;">{{ account.account_number }}</p>
+            <p style="color: #92400e;"><strong>Type:</strong> {{ account.account_type }} | <strong>Balance:</strong> ₹{{ account.balance|round(2) }}</p>
+        </div>
+
+        {% if account.balance > 0 %}
+        <div class="alert alert-warning">
+            <i class="fas fa-info-circle"></i>
+            Please withdraw all money (₹{{ account.balance|round(2) }}) before deleting.
+        </div>
+        <div style="text-align: center;">
+            <a href="{{ url_for('withdraw') }}" class="btn btn-primary">Go to Withdraw</a>
+            <a href="{{ url_for('customer_dashboard') }}" class="btn btn-outline" style="border-color: #64748b; color: #64748b;">Cancel</a>
+        </div>
+        {% else %}
+        <form method="POST" action="{{ url_for('delete_account', account_id=account.id) }}">
+            <p style="text-align: center; color: #64748b; margin-bottom: 1.5rem;">This action cannot be undone. Are you sure?</p>
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i> Yes, Delete</button>
+                <a href="{{ url_for('customer_dashboard') }}" class="btn btn-primary"><i class="fas fa-times"></i> Cancel</a>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

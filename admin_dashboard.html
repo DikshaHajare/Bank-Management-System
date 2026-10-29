@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 0;">
+    <h1 style="color: white; margin-bottom: 0.5rem;"><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h1>
+    <p style="color: rgba(255,255,255,0.9); margin-bottom: 2rem;">Welcome back, {{ session.full_name }}!</p>
+
+    <div class="dashboard-grid">
+        <div class="card stat-card">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-value">{{ total_users }}</div>
+            <div class="stat-label">Total Users</div>
+        </div>
+        <div class="card stat-card">
+            <div class="stat-icon"><i class="fas fa-university"></i></div>
+            <div class="stat-value">{{ total_accounts }}</div>
+            <div class="stat-label">Bank Accounts</div>
+        </div>
+        <div class="card stat-card">
+            <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+            <div class="stat-value">₹{{ total_balance|round(2) }}</div>
+            <div class="stat-label">Total Balance</div>
+        </div>
+        <div class="card stat-card">
+            <div class="stat-icon"><i class="fas fa-hand-holding-usd"></i></div>
+            <div class="stat-value">{{ pending_loans }}</div>
+            <div class="stat-label">Pending Loans</div>
+        </div>
+    </div>
+
+    <!-- Loan Applications -->
+    <div class="card" style="margin-top: 2rem;">
+        <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-hand-holding-usd"></i> Loan Applications</h2>
+            <span class="badge badge-warning">{{ pending_loans }} Pending</span>
+        </div>
+        {% if loans %}
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Applicant</th>
+                        <th>Type</th>
+                        <th>Amount</th>
+                        <th>Term</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for loan in loans %}
+                    <tr>
+                        <td>{{ loan.id }}</td>
+                        <td>{{ loan.user.full_name }}</td>
+                        <td>{{ loan.loan_type }}</td>
+                        <td>₹{{ loan.amount|round(2) }}</td>
+                        <td>{{ loan.term }} yrs</td>
+                        <td>
+                            {% if loan.status == 'Pending' %}
+                            <span class="badge badge-pending">Pending</span>
+                            {% elif loan.status == 'Approved' %}
+                            <span class="badge badge-approved">Approved</span>
+                            {% else %}
+                            <span class="badge badge-rejected">Rejected</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if loan.status == 'Pending' %}
+                            <form method="POST" action="{{ url_for('approve_loan', loan_id=loan.id) }}" style="display: inline;">
+                                <button type="submit" class="btn btn-secondary btn-sm"><i class="fas fa-check"></i></button>
+                            </form>
+                            <form method="POST" action="{{ url_for('reject_loan', loan_id=loan.id) }}" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
+                            </form>
+                            {% else %}
+                            <span class="badge badge-{{ 'approved' if loan.status == 'Approved' else 'rejected' }}">{{ loan.status }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <p style="color: #64748b;">No loan applications found.</p>
+        {% endif %}
+    </div>
+
+    <!-- All Users -->
+    <div class="card" style="margin-top: 2rem;">
+        <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-users"></i> All Users</h2>
+        </div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Full Name</th>
+                        <th>Email</th>
+                        <th>Type</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.full_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% if user.user_type == 'admin' %}
+                            <span class="badge badge-primary">Admin</span>
+                            {% else %}
+                            <span class="badge badge-success">Customer</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.username != 'admin' %}
+                            <form method="POST" action="{{ url_for('admin_delete_user', user_id=user.id) }}" style="display: inline;">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete {{ user.username }}?')"><i class="fas fa-trash"></i></button>
+                            </form>
+                            {% else %}
+                            <span class="badge badge-primary">Protected</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

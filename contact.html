@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Contact Us{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="card-header">
+            <h2 class="card-title"><i class="fas fa-envelope"></i> Contact Us</h2>
+        </div>
+        <form method="POST">
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-user"></i> Name</label>
+                <input type="text" name="name" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-envelope"></i> Email</label>
+                <input type="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><i class="fas fa-comment"></i> Message</label>
+                <textarea name="message" class="form-control" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> Send Message</button>
+        </form>
+        <div style="text-align: center; margin-top: 1.5rem; color: #64748b; font-size: 0.85rem;">
+            <p><i class="fas fa-phone"></i> 1800-123-4567</p>
+            <p><i class="fas fa-envelope"></i> support@bank.com</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Balance{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 2rem 0;">
+    <h1 style="color: white;"><i class="fas fa-wallet"></i> Account Balance</h1>
+
+    {% if accounts %}
+    <div class="accounts-grid" style="margin-top: 2rem;">
+        {% for account in accounts %}
+        <div class="account-card {{ account.account_type|lower }}">
+            <span class="badge badge-primary">{{ account.account_type }}</span>
+            <p class="account-number">{{ account.account_number }}</p>
+            <div class="account-balance">₹{{ account.balance|round(2) }}</div>
+            <span class="badge badge-approved">{{ account.status }}</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="card" style="margin-top: 2rem; text-align: center;">
+        <p style="color: #64748b;">No accounts found. <a href="{{ url_for('create_account') }}" style="color: #4f46e5;">Create one</a></p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
